@@ -1,8 +1,6 @@
 package javatest;
 public class Helloworld{
     public static void main(String[] args) {
-        System.out.println("Helloworld!");
-        System.out.println("hahaha");
-        
+        System.out.println("Helloworld!");        
     }
 }
