@@ -106,7 +106,7 @@ def primenumber():
         except:
             break
 
-def rond():
+def rond():    #python round函数分奇偶！！round(1.5) = 2 round(2.5) = 2
     while True:
         try:
             s = input().split('.')
@@ -116,9 +116,50 @@ def rond():
                 print(int(s[0]))
         except:
             break
-        
+#按照键值将表记录进行合并。      
+def mergeRecord():
+    while True:
+        try:
+            s = int(input())
+            dic = {}
+            for i in range(s):
+                a,b = list(map(int,input().split(' ')))
+                if a not in dic:
+                    dic[a] = b
+                else:
+                    dic[a] += b
+            for k,v in sorted(dic.items(), key = lambda x: x[0]):
+                print(k,v)
+        except:
+            break
 
-            
+#对输入整数进行反序去重。
+def setint():
+    while True:
+        try:
+            s = input().strip()
+            l = ''
+            for al in s[::-1]:
+                if al not in l:
+                    l += al
+            print(l)
+        except:
+            break  
+#统计输入字符串中ascii码在0～127之间的不重复字符的个数
+def  charcunt():
+    while True:
+        try:
+            s = input().strip('\n')
+            l = ''
+            for le in s:
+                if ord(le) in range(0,128):
+                    if le not in l:
+                        l += le
+            print(len(l))
+        except:
+            break  
+
+
 if __name__=="__main__":
     #wordlength()
     #wordcunt()
@@ -127,4 +168,7 @@ if __name__=="__main__":
     #hextoint()
     #hextoint1()
     #primenumber()
-    rond()
+    #rond()
+    mergeRecord()
+    setint()
+    charcunt()

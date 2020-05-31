@@ -199,7 +199,7 @@ public class Main{
         }
         scan.close();
     }
-
+   // 求一个数的所有质数因子。
     public boolean isPrime(long n)
     {
         int i = 2;
@@ -243,14 +243,95 @@ public class Main{
         }
         scan.close();
     }
-
-    public void rond()
+/*
+Math.round():它表示四舍五入，算法为 Math.floor(x+0.5)，即将原来的数字加上 0.5 后再向下取整，所以，Math.round(11.5) 的结果为12，Math.round(-11.5) 的结果为-11。
+Math.floor():地板值，返回小于等于（<=）给定参数的最大整数 。返回类型为双精度浮点型。
+Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整数，返回类型为双精度浮点型。
+*/
+    public void rond()   
     {
         Scanner scan = new Scanner(System.in);
         while(scan.hasNext())
         {
             double s = Double.valueOf(scan.nextLine());
             System.out.println((int)(s+0.5));
+        }
+        scan.close();
+    }
+/*    对多条记录按照键值合并并排序！
+      使用TreeMap数据结构！因为它是有序的！
+*/
+    public void mergeRecord(){
+        Scanner scan = new Scanner(System.in);
+        while(scan.hasNext())
+        {
+            int b = Integer.valueOf(scan.nextLine());
+            Map<Integer,Integer> map = new TreeMap<>();
+            for(int i=0; i< b; i++)
+            {
+                int key = scan.nextInt();
+                int value = scan.nextInt();
+                if(map.containsKey(key)){
+                   int ori = map.get(key);
+                   map.put(key, ori+value);
+                }
+                else
+                    map.put(key, value);
+            }
+            for(int key:map.keySet())
+            {
+                int fin = map.get(key);
+                System.out.println(key + " " + fin);
+            }
+
+        }
+        scan.close();
+    }
+    
+    public void setint()
+    {
+         Scanner scan = new Scanner(System.in);
+        while(scan.hasNext()){
+            int s = scan.nextInt();
+            int[] arr = new int[10];
+            for(int i=0;i<10;i++)
+                arr[i] = 0;
+            while(s!=0)   //while只支持布尔类型判断
+            {
+                int mod = s % 10;
+                if(arr[mod] == 0)   //不支持(!arr[mod])
+                {
+                    System.out.print(mod);
+                    arr[mod] += 1;
+                }
+                s = s/10;
+            }
+        }
+        scan.close();
+    }
+//统计输入字符串中ascii码在0～127之间的不重复字符的个数
+    public void charcunt()
+    {
+         Scanner scan = new Scanner(System.in);
+        while(scan.hasNext()){
+            String s = scan.nextLine();
+            int[] flag = new int[128];
+            int cunt = 0;
+            for(int i=0; i<128;i++)
+                flag[i] = 0;
+            for(int i=0; i< s.length(); i++)
+            {
+                char ch = s.charAt(i);
+                if(ch >= 0 && ch <= 127)
+                {
+                    if(flag[ch] == 0)
+                    {
+                        cunt += 1;
+                        flag[ch] = 1;
+                    }
+                }
+            }
+            System.out.println(cunt);
         }
         scan.close();
     }
@@ -267,9 +348,14 @@ public class Main{
         // ma.hextoint();
        // ma.hextoint2();
        //ma.hextoint1();
-       ma.primeNumber();
+       //ma.primeNumber();
+       //ma.rond();
+    //    ma.mergeRecord();
+    //    ma.setint();
+       ma.charcunt();
       
        
          
     }
 }
+
