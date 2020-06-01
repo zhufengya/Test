@@ -335,7 +335,127 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         scan.close();
     }
+
+    public void strReverse()
+    {
+        Scanner s = new Scanner(System.in);
+        while(s.hasNext())
+        {
+            String ipt = s.nextLine();
+            // StringBuilder sb = new StringBuilder(ipt);
+            // sb.reverse();
+            // System.out.println(sb.toString());
+            for(int i= ipt.length()-1; i >=0; i--)
+            {
+                System.out.print(ipt.charAt(i));
+            }
+        }
+        s.close();
+    }
+
+    public void senReverse()
+    {
+        Scanner s = new Scanner(System.in);
+        while(s.hasNext())
+        {
+            String ipt = s.nextLine();
+            String[] arr = ipt.split(" ");
+            for(int i = arr.length-1; i >0; i--)
+                System.out.print(arr[i] + " ");
+            System.out.print(arr[0]);
+        }
+    }
+
+    public void strDic()
+    {
+        Scanner s = new Scanner(System.in);
+        while(s.hasNext())
+        {
+            int ipt = Integer.valueOf(s.nextInt());   //s.nextInt()仅读取了整数值
+            s.nextLine();   //把第一行的空格读取掉， 或者下面直接用s.next()。
+            String[] sb = new String[ipt];
+            for(int i=0; i < ipt; i ++)
+            {
+                sb[i] = s.nextLine();
+            }
+            Arrays.sort(sb);
+            for(String st:sb)
+            {
+                System.out.println(st);
+            }
+        }
+        s.close();
+        List<Character> a = List.of('A','W');
+        a.add('a');
+        a.contains('a');
+    }
     
+    public void int1()
+    {
+        Scanner s = new Scanner(System.in);
+        while(s.hasNext())
+        {
+           int n = s.nextInt();
+            int cunt = 0;
+            //String s1 = Integer.toBinaryString(n);  将整数转化为对应进制的字符串。
+           while(n!=0)
+           {
+               if(n % 2 == 1)
+                   cunt +=1;
+               n = n / 2;
+           }
+            System.out.println(cunt);
+        }
+        s.close();
+        }
+
+        public boolean isValid(String word)
+    {
+        List<Character> list = List.of('A','W','D','S');
+        if(word.length()>0 && list.contains(word.charAt(0)) && word.length()<=3)   //考虑分割后空字符串的情况
+              {
+                  for(int i =1; i< word.length(); i++)
+                  {
+                      if(word.charAt(i) >= '0' && word.charAt(i)<= '9')
+                          continue;
+                      else
+                          return false;
+                  }
+                  return true;
+              }
+        else
+              return false;
+    }
+    public void coordinate_move()
+    {
+        Scanner s = new Scanner(System.in);
+        while(s.hasNext())
+        {
+          int x = 0, y=0;
+          String ipt = s.nextLine();
+          String[] arr = ipt.split("\\;");
+          for(String ele:arr)
+          {
+              if(isValid(ele))
+              {
+                  int temp = Integer.valueOf(ele.substring(1));
+                  char ch = ele.charAt(0);
+                  switch(ch)
+                  {
+                          case 'A': x -=temp;break;
+                          case 'D': x +=temp;break;
+                          case 'W': y +=temp;break;
+                          case 'S': y -=temp;break;
+                  }
+              }
+          }
+          System.out.println(x + "," + y);
+          
+        }
+        s.close();
+    }
+
+
     public static void main(String[] args)
     {
         Main ma = new Main();
@@ -346,13 +466,18 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         // ma.strSplit();
         // ma.strSplit1();
         // ma.hextoint();
-       // ma.hextoint2();
-       //ma.hextoint1();
-       //ma.primeNumber();
-       //ma.rond();
-    //    ma.mergeRecord();
-    //    ma.setint();
-       ma.charcunt();
+        // ma.hextoint2();
+        // ma.hextoint1();
+        // ma.primeNumber();
+        // ma.rond();
+        // ma.mergeRecord();
+        // ma.setint();
+        // ma.charcunt();
+        // ma.strReverse();
+        // ma.senReverse();
+        //ma.strDic();
+        //ma.int1();
+        ma.coordinate_move();
       
        
          

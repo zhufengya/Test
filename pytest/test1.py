@@ -159,6 +159,66 @@ def  charcunt():
         except:
             break  
 
+#字符串逆序输出
+def strreverse():
+    while True:
+        try:
+            s = input()
+            print(s[::-1])
+        except:
+            break
+    
+def senreverse():
+    while True:
+        try:
+            s = input().strip().split(' ')
+            print(" ".join(s[::-1]))
+        except:
+            break
+
+def strdic():
+    while True:
+        try:
+            s = int(input())
+            l = []
+            for i in range(s):
+                l.append(input().strip())
+            l.sort()
+            for le in l:
+                print(le)
+        except:
+            break
+
+def int1():
+    while True:
+        try:
+            n = int(input())
+            st = bin(n)[2:]
+            print(st.count('1'))
+        except:
+            break
+ 
+def coordinate_move():
+    while True:
+        try:
+            s = input().strip().split(';')
+            x,y = 0,0
+            for word in s:
+                if len(word) in range(2,4) and word[1:].isdigit():
+                    if word[0] == 'A':
+                        x -= int(word[1:])
+                    elif word[0] == 'D':
+                        x += int(word[1:])
+                    elif word[0] == 'W':
+                        y += int(word[1:])
+                    elif word[0] == 'S':
+                        y -= int(word[1:])
+                    else:
+                        continue
+            print(str(x) + ',' + str(y))
+        except:
+            break
+                          
 
 if __name__=="__main__":
     #wordlength()
@@ -172,3 +232,8 @@ if __name__=="__main__":
     mergeRecord()
     setint()
     charcunt()
+    strreverse()
+    senreverse()
+    strdic()
+    int1()
+    coordinate_move()
