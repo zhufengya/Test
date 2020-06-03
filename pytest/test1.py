@@ -218,7 +218,50 @@ def coordinate_move():
             print(str(x) + ',' + str(y))
         except:
             break
-                          
+
+def valid_mask(st):
+    try:
+        l = list(map(int,st.split('.')))
+        if(len(l)!=4):
+            return False
+        if l == [0,0,0,0] or l == [255,255,255,255]:
+            return False
+        summ = (l[0]<<24) + (l[1]<<16) + (l[2]<<8) + l[3]
+        if summ | (summ -1) == 0xFFFFFFFF:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+def ipclass(st):
+    try:
+        l = list(map(int,st.split('.')))
+        if(len(l) != 4):
+            return 'err'
+        if l[0] == 10:
+            return 'ap'
+        elif l[0] == 172 and l[1] in range(16,32):
+            return 'bp'
+        elif l[0] == 192 and l[1] == 168:
+            return 'cp'
+        elif l[0] in range(1,127):
+            return 'a'
+        elif l[0] in range(128,192):
+            return 'b'
+        elif l[0] in range(192,224):
+            return 'c'
+        elif l[0] in range(224,240):
+            return 'd'
+        elif l[0] in range(240,256):
+            return 'e'
+        else:
+            return 'err'
+    except:
+        return 'err'
+
+
+                               
 
 if __name__=="__main__":
     #wordlength()
@@ -229,11 +272,45 @@ if __name__=="__main__":
     #hextoint1()
     #primenumber()
     #rond()
-    mergeRecord()
-    setint()
-    charcunt()
-    strreverse()
-    senreverse()
-    strdic()
-    int1()
-    coordinate_move()
+    # mergeRecord()
+    # setint()
+    # charcunt()
+    # strreverse()
+    # senreverse()
+    # strdic()
+    # int1()
+    # coordinate_move()
+
+    a,b,c,d,e,err,p = 0,0,0,0,0,0,0
+    while True:
+        try:
+            ipt = input().strip().split('~')
+            ip = ipt[0]
+            mask = ipt[1]
+            if valid_mask(mask):
+                if ipclass(ip) == 'ap':
+                    a += 1
+                    p += 1
+                elif ipclass(ip) == 'bp':
+                    b += 1
+                    p += 1
+                elif ipclass(ip) == 'cp':
+                    c += 1
+                    p += 1
+                elif ipclass(ip) == 'a':
+                    a += 1
+                elif ipclass(ip) == 'b':
+                    b += 1
+                elif ipclass(ip) == 'c':
+                    c += 1
+                elif ipclass(ip) == 'd':
+                    d += 1
+                elif ipclass(ip) == 'e':
+                    e += 1
+                else:
+                    err += 1
+            else:
+                err += 1
+        except:
+            break
+    print(a,b,c,d,e,err,p)

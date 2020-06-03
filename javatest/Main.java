@@ -364,6 +364,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
                 System.out.print(arr[i] + " ");
             System.out.print(arr[0]);
         }
+        s.close();
     }
 
     public void strDic()
@@ -455,6 +456,9 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         s.close();
     }
 
+   
+        
+        
 
     public static void main(String[] args)
     {

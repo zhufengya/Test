@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Complex",
+            "request": "launch",
+            "mainClass": "javatest.Complex",
+            "projectName": "codetest_1c4cacb8"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Helloworld",
             "request": "launch",
             "mainClass": "javatest.Helloworld",
