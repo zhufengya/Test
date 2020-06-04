@@ -1,5 +1,6 @@
 package javatest;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Main{
     /* 求字符串最后一个单词的长度 */
@@ -287,10 +288,10 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         scan.close();
     }
-    
+    //提取不重复的整数
     public void setint()
     {
-         Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         while(scan.hasNext()){
             int s = scan.nextInt();
             int[] arr = new int[10];
@@ -309,7 +310,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         scan.close();
     }
-//统计输入字符串中ascii码在0～127之间的不重复字符的个数
+//字符个数统计，统计输入字符串中ascii码在0～127之间的不重复字符的个数
     public void charcunt()
     {
          Scanner scan = new Scanner(System.in);
@@ -335,7 +336,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         scan.close();
     }
-
+//数字颠倒
     public void strReverse()
     {
         Scanner s = new Scanner(System.in);
@@ -352,7 +353,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         s.close();
     }
-
+//字符串反转
     public void senReverse()
     {
         Scanner s = new Scanner(System.in);
@@ -366,7 +367,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         s.close();
     }
-
+//字串的连接最长路径查找
     public void strDic()
     {
         Scanner s = new Scanner(System.in);
@@ -390,15 +391,15 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         a.add('a');
         a.contains('a');
     }
-    
+ //求int型正整数在内存中存储时1的个数   
     public void int1()
     {
         Scanner s = new Scanner(System.in);
         while(s.hasNext())
         {
            int n = s.nextInt();
-            int cunt = 0;
-            //String s1 = Integer.toBinaryString(n);  将整数转化为对应进制的字符串。
+           int cunt = 0;
+        //String s1 = Integer.toBinaryString(n);  将整数转化为对应进制的字符串。
            while(n!=0)
            {
                if(n % 2 == 1)
@@ -409,7 +410,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         s.close();
         }
-
+//坐标移动
         public boolean isValid(String word)
     {
         List<Character> list = List.of('A','W','D','S');
@@ -455,10 +456,215 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         }
         s.close();
     }
+//简单错误记录
+    public void errorRecord(){
+        Scanner scan = new Scanner(System.in);
+        List<String> l = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        while(scan.hasNext())
+        {
+            String s = scan.nextLine();
+            String[] s1 = s.split("\\\\");
+            String[] re = s1[s1.length-1].split("\\s+");
+            String record = "";
+            if(re[0].length() > 16)
+                record += re[0].substring(re[0].length() - 16) + " " + re[1];
+            else
+                record += re[0] + " " +  re[1];
+            if(!l.contains(record))
+            {
+                l.add(record);
+                map.put(record,1);
+            }
+            else{
+                for(String st:map.keySet())   //map.containsKey(st)函数：判断map对象中是否存在以st为键值的参数！！
+                {
+                    if(st.equals(record))     //判断字符串相等最好用equals!!!
+                    {
+                        int cunt = map.get(st) + 1;
+                        map.put(st, cunt);
+                        break;
+                    }
+                }
+            }
+        }
+        if(l.size()>8)
+        {
+            for(int i = l.size()-8; i < l.size(); i++)
+            {
+                for(String st: map.keySet())
+                {
+                    if(st.equals(l.get(i)))
+                        System.out.println(st+ " " + map.get(st));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<l.size(); i ++)
+            {
+                for(String st: map.keySet())
+                {
+                    if(st.equals(l.get(i)))
+                        System.out.println(st + " " + map.get(st));
+                }
+            }
+        }
+        scan.close();
+    }
+// LinkedHashMap是个好东西==将键值对按照存放时间排序，是有序的！！！
+    public void errorRecord1(){
+        Scanner scan = new Scanner(System.in);
+        Map<String, Integer> map = new LinkedHashMap<>();
+        while(scan.hasNext())
+        {
+            String s = scan.next();
+            int col = scan.nextInt();
+            String[] s1 = s.split("\\\\");
+            String record = s1[s1.length-1];
+            if(record.length()>16)
+                record = record.substring(record.length()-16);
+            String re = record + " " + col;
+            if(map.containsKey(re))
+                map.put(re, map.get(re)+1 );
+            else
+                map.put(re,1);
+        }
+        int cunt = 0;
+        for(String st:map.keySet())   //输出最后八条记录！！大佬还是多。。。
+        {
+            cunt ++;
+            if(cunt > map.size() - 8)
+                System.out.println(st + " " + map.get(st));
+        }
+        scan.close();
+    }
+//密码验证合格程序
+    public int symbol(String st)
+    {
+        char[] arr = st.toCharArray();
+        int a=0,b=0,c=0,d=0;
+        for(char  ch:arr)
+        {
+            if(ch >= '0' && ch <= '9')
+                a = 1;
+            else if(ch >= 'a' && ch <= 'z')
+                b = 1;
+            else if(ch >= 'A' && ch <= 'Z')
+                c = 1;
+            else 
+                d = 1;
+        }
+        return (a+b+c+d);
+    }
+    
+    public boolean substr(String st)
+    {
+        for(int i=0; i< st.length()-2; i++)
+        {
+            String s = st.substring(i,i+3);
+            if(st.indexOf(s,i+1) != -1)   
+                return false;
+        }
+        return true;
+    }
 
-   
-        
-        
+    public void pwdValid(){
+        Scanner scan = new Scanner(System.in);
+        while(scan.hasNext())
+        {
+            String s = scan.next();
+            if(s.length()>8)
+            {
+                if(symbol(s) >= 3)
+                {
+                    if(substr(s))
+                    {
+                        System.out.println("OK");
+                        continue;
+                    }
+                }
+            }
+            System.out.println("NG");
+        }
+        scan.close();
+    }
+
+    public void pwdValid1(){
+        Scanner scan = new Scanner(System.in);
+            String p1 = ".*\\d.*";
+            String p2 = ".*[a-z].*";
+            String p3 = ".*[A-Z].*";
+            String p4 = ".*[^\\dA-Za-z].*";
+            String p5 = ".*(.{3,}).*\\1.*";    //正则表达式前向引用。\\双斜杠！
+        while(scan.hasNext()){
+            String s = scan.nextLine();
+            int cunt = 0;
+            if(s.matches(p1))
+                cunt += 1;
+            if(s.matches(p2))
+                cunt += 1;
+            if(s.matches(p3))
+                cunt += 1;
+            if(s.matches(p4))   
+                cunt += 1;
+            if(s.length() > 8)
+            {
+                if(cunt >= 3)
+                {
+                    if(!s.matches(p5))
+                    {
+                        System.out.println("OK");
+                        continue;
+                }
+            }
+                        }
+            System.out.println("NG");
+        }
+        scan.close();
+    }
+ //简单密码破解
+    public void simplePwd(){
+        Scanner scan = new Scanner(System.in);
+        while(scan.hasNext()){
+            String s = scan.nextLine();
+            char[] arr = s.toCharArray();
+            for(char ch:arr){
+                if(ch >= 'A' && ch < 'Z')
+                    ch = (char)(ch + 33);
+                else if(ch == 'Z')
+                    ch = 'a';
+                else if(ch >= 97 && ch <= 99)
+                    ch = '2';
+                else if(ch >= 100 && ch <= 102)
+                    ch = '3';
+                else if(ch >= 103 && ch <= 105)
+                    ch = '4';
+                else if(ch >= 106 && ch <= 108)
+                    ch = '5';
+                else if(ch >= 109 && ch <= 111)
+                    ch = '6';
+                else if(ch >= 112 && ch <= 115)
+                    ch = '7';
+                else if(ch >= 116 && ch <= 118)
+                    ch = '8';
+                else if(ch >= 119 && ch <= 122)
+                    ch = '9';
+                System.out.println(ch);     
+            }
+         }
+         scan.close();   
+        }
+//汽水瓶  
+        public void bottle(){
+            Scanner scan = new Scanner(System.in);
+            while(scan.hasNext()){
+                int s = scan.nextInt();
+                scan.nextLine();
+                System.out.println(s/2);
+                }
+            scan.close();
+             }
 
     public static void main(String[] args)
     {
@@ -481,9 +687,12 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         // ma.senReverse();
         //ma.strDic();
         //ma.int1();
-        ma.coordinate_move();
+        //ma.coordinate_move();
+        //ma.errorRecord();
+        //ma.pwdValid1();
+        //ma.simplePwd();
+        ma.bottle();
       
-       
          
     }
 }

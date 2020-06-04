@@ -1,3 +1,5 @@
+import re
+
 def wordlength():
     while True:
         try:
@@ -260,27 +262,7 @@ def ipclass(st):
     except:
         return 'err'
 
-
-                               
-
-if __name__=="__main__":
-    #wordlength()
-    #wordcunt()
-    #mingming()
-    #strsplit()
-    #hextoint()
-    #hextoint1()
-    #primenumber()
-    #rond()
-    # mergeRecord()
-    # setint()
-    # charcunt()
-    # strreverse()
-    # senreverse()
-    # strdic()
-    # int1()
-    # coordinate_move()
-
+def addressclass():
     a,b,c,d,e,err,p = 0,0,0,0,0,0,0
     while True:
         try:
@@ -314,3 +296,148 @@ if __name__=="__main__":
         except:
             break
     print(a,b,c,d,e,err,p)
+
+def errecord():
+    l = []
+    recordlist = []
+    while True:
+        try:
+            s = input().strip().split('\\')
+            record = s[-1].split(" ")
+            if len(record[0]) >= 16:
+                temp = record[0][-16:]
+            else:
+                temp = record[0]
+            re = temp + ' ' + record[-1]
+            if s[-1] not in l:
+                l.append(s[-1])
+                recordlist.append([re,1])
+            else:
+                for ele in recordlist:
+                    if ele[0] == re:
+                        ele[1] += 1
+                        break
+            if len(recordlist) > 8:
+                for ele in recordlist[-8:]:
+                    print(ele[0],ele[1])
+            else:
+                for ele in recordlist:
+                    print(ele[0],ele[1])
+        except:
+            break
+            
+def pwd_valid():      
+    while True:
+        try:
+            s = input()
+            p1 = r'\d'
+            p2 = r'[A-Z]'
+            p3 = r'[a-z]'
+            p4 = r'[^\dA-Za-z]'
+            p5 = r'(.{3,}).*\1'     #寻找长度超过2的重复子串。 \1表示重复前一个()的内容。
+            l1 = re.findall(p1,s)
+            l2 = re.findall(p2,s)
+            l3 = re.findall(p3,s)
+            l4 = re.findall(p4,s)
+            l5 = re.findall(p5,s)
+            if len(s) > 8:
+                if (l1,l2,l3,l4).count([]) <= 1:
+                    if not l5:
+                        print('OK')
+                        continue
+            print('NG')
+        except:
+            break       
+
+def symbol(st):
+    cunt = [0,0,0,0]
+    for letter in st:
+        if letter.isdigit():
+            cunt[0] = 1
+        elif letter.isupper():
+            cunt[1] = 1
+        elif letter.islower():
+            cunt[2] = 1
+        else:
+            cunt[3] = 1
+    return sum(cunt)
+ 
+def substr(st):
+    for i in range(len(st)-2):
+        if st.find(st[i:i+3], i+1) != -1:
+            return False
+    return True
+
+def pwd_valid():
+    while True:
+        try:
+            s = input().strip()
+            if len(s) > 8:
+                if symbol(s) >= 3:
+                    if substr(s):
+                        print('OK')
+                        continue
+            print('NG')
+        except:
+            break                           
+
+def simple_pwd():
+    while True:
+        try:
+            s = input().strip()
+            l = ''
+            for letter in s:
+                if letter.isupper():
+                    if letter == 'Z':
+                        letter = 'a'
+                    else:
+                        letter = chr(ord(letter.lower())+1)
+                elif letter in 'abc':
+                    letter = '2'
+                elif letter in 'def':
+                    letter = '3'
+                elif letter in 'ghi':
+                    letter = '4'
+                elif letter in 'jkl':
+                    letter = '5'
+                elif letter in 'mno':
+                    letter = '6'
+                elif letter in 'pqrs':
+                    letter = '7'
+                elif letter in 'tuv':
+                    letter = '8'
+                elif letter in 'wxyz':
+                    letter = '9'
+                l += letter
+            print(l)
+        except:
+            break
+
+def bottle():
+    while True:
+        try:
+            s = int(input())
+            print(s//2)
+        except:
+            break
+
+if __name__=="__main__":
+    #wordlength()
+    #wordcunt()
+    #mingming()
+    #strsplit()
+    #hextoint()
+    #hextoint1()
+    #primenumber()
+    #rond()
+    # mergeRecord()
+    # setint()
+    # charcunt()
+    # strreverse()
+    # senreverse()
+    # strdic()
+    # int1()
+    # coordinate_move()
+    # errecord()
+    pwd_valid()
+    
