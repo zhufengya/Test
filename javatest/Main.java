@@ -650,7 +650,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
                     ch = '8';
                 else if(ch >= 119 && ch <= 122)
                     ch = '9';
-                System.out.println(ch);     
+                System.out.println();     
             }
          }
          scan.close();   
@@ -666,6 +666,154 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
             scan.close();
              }
 
+             public void deleteLeast(){
+                Scanner scan = new Scanner(System.in);
+                while(scan.hasNext()){
+                    String s = scan.nextLine();
+                    Integer[] l = new Integer[26];
+                    for(int i=0; i< 26; i++)
+                    {
+                        l[i] = 21;
+                    }
+                    char[] arr = s.toCharArray();
+                    for(char ch:arr)
+                    {
+                        if(l[ch-97] == 21)
+                            l[ch-97] = 1;
+                        else
+                            l[ch-97] += 1;
+                    }
+                    int index = (int) Collections.min(Arrays.asList(l)); //还不如自己直接写for循环找最小值==费了多大事儿==
+                    for(char ch:arr)
+                    {
+                        if(l[(int)ch - 97] != index)
+                            System.out.print(ch);
+                    }
+                    System.out.println();
+                    }
+                    scan.close();
+                 }
+
+                 public void deleteLeast1(){
+                    Scanner scan = new Scanner(System.in);
+                    while(scan.hasNext()){
+                        String s = scan.nextLine();
+                        Map<Character,Integer> map = new HashMap<>();
+                        char[] arr = s.toCharArray();
+                        for(char ch:arr)
+                        {
+                            if(!map.containsKey(ch))
+                                map.put(ch,1);
+                            else
+                                map.put(ch,map.get(ch)+1);
+                        }
+                        int index = Collections.min(map.values());   //对map的键值进行排序！map.values()返回的是个Collection对象。
+                        for(char ch:arr)
+                        {
+                            if(map.get(ch) != index)
+                                System.out.print(ch);
+                        }
+                        System.out.println();
+                        }
+                        scan.close();
+                    
+                     }
+//字符串排序！！忽略大小写对字符串进行排序Collections.sort(list,String.CASE_INSENSITIVE_ORDER);  或者可以重写Comparator的compare函数==
+                     public void strSort(){
+                        Scanner scan = new Scanner(System.in);
+                        while(scan.hasNext())
+                        {
+                            String s = scan.next();
+                            char[] arr = s.toCharArray();
+                            List<String> list = new LinkedList<>();
+                            for(char ch:arr)
+                            {
+                                 if((ch >='a' && ch<='z') || (ch >='A' && ch<='Z'))
+                                     list.add(String.valueOf(ch));
+                            }
+                            Collections.sort(list,String.CASE_INSENSITIVE_ORDER);
+                            /*
+                            Collections.sort(list, new Comparator<Character> () {
+                            @Override
+                            public int compare(Character o1, Character o2) {
+                                return Character.toLowerCase(o1)-Character.toLowerCase(o2);
+                                    }      
+                            });  */
+                            int i = 0;
+                            for(char ch:arr)
+                            {
+                                if((ch >='a' && ch<='z') || (ch >='A' && ch<='Z'))
+                                {
+                                    System.out.print(list.get(i));
+                                    i += 1;
+                                }
+                                else
+                                    System.out.print(ch);
+                            }
+                            System.out.println();
+                        }
+                        scan.close();
+                    }
+
+                    public void strSort1(){
+                        Scanner scan = new Scanner(System.in);
+                        while(scan.hasNext())
+                        {
+                            String s = scan.next();
+                            char[] arr = s.toCharArray();
+                            List<Character> list = new LinkedList<>();
+                            for(int i=0;i<26; i++)            //基于计数排序思想对大小写字母进行排序。
+                            {
+                                for(char ch:arr)
+                                {
+                                    if(ch -'a' == i || ch-'A' == i)
+                                        list.add(ch);
+                                }
+                            }
+                            int k = 0;
+                            for(char ch:arr)
+                            {
+                                if(Character.isLetter(ch))
+                                {
+                                    System.out.print(list.get(k));
+                                    k += 1;
+                                }
+                                else
+                                    System.out.print(ch);
+                            }
+                            System.out.println();
+                        }
+                        scan.close();
+                    }
+//查找兄弟单词，排序！
+                 public void broWord(){
+                        Scanner scan = new Scanner(System.in);
+                        while(scan.hasNext())
+                        {
+                            String s = scan.nextLine();
+                            String[] ss = s.split("\\ ");
+                            int index = Integer.valueOf(ss[ss.length-1]);
+                            char[] word = ss[ss.length-2].toCharArray();
+                            Arrays.sort(word);
+                            List<String> list = new LinkedList<>();
+                            for(int i= 1; i < ss.length - 2; i ++)
+                            {
+                                char[] temp = ss[i].toCharArray();
+                                Arrays.sort(temp);
+                                if(Arrays.equals(temp,word) && !ss[i].equals(ss[ss.length-2]))    //Arrays.equals()和a.equals(b)的区别！！！
+                                {
+                                    list.add(ss[i]);
+                                }
+                            }
+                            Collections.sort(list);
+                            System.out.println(list.size());
+                            if(index <= list.size())
+                                System.out.println(list.get(index-1));
+                        }
+                        scan.close();
+                    }
+                    
+                    
     public static void main(String[] args)
     {
         Main ma = new Main();
@@ -691,8 +839,9 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         //ma.errorRecord();
         //ma.pwdValid1();
         //ma.simplePwd();
-        ma.bottle();
-      
+        //ma.bottle();
+        //ma.deleteLeast();
+          ma.broWord();
          
     }
 }

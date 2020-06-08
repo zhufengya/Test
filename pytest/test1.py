@@ -420,7 +420,147 @@ def bottle():
             print(s//2)
         except:
             break
+#删除字符串中出现次数最少的字符。
+def del_least_letter():
+    while True:
+        try:
+            s = input()
+            l = [0 for i in range(26)]
+            t = ''
+            for le in s:
+                l[ord(le)-97] += 1
+            index = min([i for i in l  if i != 0])
+            for st in s:
+                if l[ord(st)-97] != index:
+                    t += st
+            print(t)
+        except:
+            break
+#购物单
+def shopping_list():
+    N, m =list(map(int, input().split(' '))) 
+    N = N // 10
+    f = [0 for i in range(N+1)]
+    price = [[0 for i in range(3)] for j in range(m+1)]
+    value = [[0 for i in range(3)] for j in range(m+1)]
+    for i in range(1,m+1):
+        v, p, q = list(map(int, input().split(' ')))
+        v  = v // 10
+        vp = v * p
+        if q == 0:
+            price[i][0] = v
+            value[i][0] = vp
+        elif price[q][1] == 0:
+            price[q][1] = v
+            value[q][1] = vp
+        else:
+            price[q][2] = v
+            value[q][2] = vp
+    for i in range(1,m+1):
+        if price[i][0] == 0:
+            continue
+        for j in range(N,0,-1):
+            if j >= price[i][0]:
+                f[j] = max(f[j], f[j-price[i][0]] + value[i][0])
+                if price[i][1] == 0:
+                    continue
+            if j >= price[i][0] + price[i][1]:
+                f[j] = max(f[j], f[j-price[i][0] - price[i][1]] + value[i][0] + value[i][1])
+                if price[i][2] == 0:
+                    continue
+            if j >= price[i][0] + price[i][2]:
+                f[j] = max(f[j], f[j-price[i][0] - price[i][2]] + value[i][0] + value[i][2])
+            if j >= price[i][0] + price[i][1] + price[i][2]:
+                f[j] = max(f[j], f[j-price[i][0] - price[i][1] - price[i][2]] + value[i][0] + value[i][1] + value[i][2])
+    print(f[N] * 10)
+#合唱队
+def maxx(li):
+    f = [0 for i in range(len(li))]
+    for i in range(len(li)):
+        for j in range(i-1,-1,-1):
+            if li[i] > li[j] and f[i] < f[j] + 1:
+                f[i] = f[j] + 1
+    return f
 
+def hechang():
+    while True:
+        try:
+            n = int(input())
+            l = list(map(int, input().split(' ')))
+            f1 = maxx(l)
+            f2 = maxx(l[::-1])
+            ma = max([f1[i] + f2[::-1][i] for i in range(n)])
+            print(n-ma - 1)
+        except:
+            break
+#数据分类处理！ 时刻谨记要写strip()去掉额外的换行等字符！！！
+def data_process():
+    while True:
+        try:
+            li = input().strip().split(' ')[1:]
+            lr = list(map(int,input().strip().split(' ')[1:]))
+            lr = sorted(list(set(lr)))
+            l = []
+            for ele in lr:
+                s = []
+                cunt = 0
+                ele = str(ele)
+                l.append(ele)
+                for t in li:
+                    if ele in t:
+                        s.append(str(li.index(t)))
+                        s.append(t)
+                        cunt += 1
+                if cunt == 0:
+                    continue
+                l.append(str(cunt))
+                l.extend(s)
+            print(len(l),' '.join(l))
+        except:
+            break
+#字符串排序
+def str_sort():
+    while True:
+        try:
+            s = input().strip()
+            l = []
+            for letter in s:
+                if letter.isalpha():
+                    l.append(letter)
+            l.sort(key = lambda x: x.lower())
+            result = ''
+            i = 0
+            for letter in s:
+                if letter.isalpha():
+                    result += l[i]
+                    i += 1
+                else:
+                    result += letter
+            print(result)
+        except:
+            break
+
+def brother_word():
+    while True:
+        try:
+            s = input().split(' ')
+            index = int(s[-1])
+            word = s[-2]
+            wl = list(word)
+            wl.sort()
+            l = []
+            for ele in s[1:-2]:
+                elel = list(ele)
+                elel.sort()
+                if (elel == wl) and (ele != word):
+                    l.append(ele)
+            l.sort()
+            print(len(l))
+            if index <= len(l):
+                print(l[index-1])
+        except:
+            break
+        
 if __name__=="__main__":
     #wordlength()
     #wordcunt()
@@ -439,5 +579,8 @@ if __name__=="__main__":
     # int1()
     # coordinate_move()
     # errecord()
-    pwd_valid()
-    
+    # pwd_valid()
+    # shopping_list()
+    # hechang()
+    data_process()
+        

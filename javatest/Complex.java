@@ -186,11 +186,56 @@ public class Complex{
        System.out.println(a + " "+b+" "+c+" "+d+" "+e+" "+err+" "+p);
        scan.close();
     }
-    
+//数据分类处理    TreeSet排序去重利器！！！
+    public void dataProcess(){
+        Scanner scan = new Scanner(System.in);
+        while(scan.hasNext())
+        {
+            scan.nextInt();
+            String si = scan.nextLine().trim();
+            scan.nextInt();
+            String sr = scan.nextLine().trim();
+            String[] iarr = si.split("\\ ");
+            String[] rarr = sr.split("\\ ");
+            Set<Integer> set = new TreeSet<Integer>();
+            for(String rach:rarr)
+            {
+                int ele = Integer.valueOf(rach);
+                set.add(ele);
+            }
+            String fin = "";
+            int num = 0;
+            for(int ele: set)
+            {
+                String re = "";
+                int cunt = 0;
+                for(int i=0; i < iarr.length; i++)
+                {
+                    if(iarr[i].contains(String.valueOf(ele)))
+                    {
+                        re += i + " ";
+                        re += iarr[i] + " ";
+                        cunt += 1;
+                    }
+                }
+                if(cunt !=0)
+                {
+                    fin =fin + ele + " " + cunt + " " + re;
+                    num += 2 + cunt * 2;
+                }
+            }
+            fin = num +" " + fin;
+            System.out.println(fin);
+        }
+        scan.close();
+    }
+
     public static void main(String[] args)
     {
         Complex ma = new Complex();
-        ma.main();
+        //ma.main();
+        ma.dataProcess();
+        
         
     }
 }
