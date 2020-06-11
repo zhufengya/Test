@@ -812,9 +812,87 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
                         }
                         scan.close();
                     }
+//字符串加解密   对字符串进行简单移位操作，可以采用字典来暴力破解==                  
+                    public final String s1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    public final String s2 = "BCDEFGHIJKLMNOPQRSTUVWXYZAbcdefghijklmnopqrstuvwxyza1234567890";
                     
-                    
-    public static void main(String[] args)
+                    public void encrypt(String t, int f)
+                    {
+                        char[] lis = t.toCharArray();
+                        StringBuilder sb = new StringBuilder();
+                        for(char ch:lis)
+                        {
+                            if(f == 0)
+                                sb.append(s2.substring(s1.indexOf(String.valueOf(ch)), s1.indexOf(String.valueOf(ch))+1));
+                            else
+                                 sb.append(s1.substring(s2.indexOf(String.valueOf(ch)), s2.indexOf(String.valueOf(ch))+1));
+                        }
+                        System.out.println(sb.toString());
+                    }
+                    public void strEnc(){
+                        Scanner sc = new Scanner(System.in);
+                        while(sc.hasNext())
+                        {
+                            String l1 = sc.nextLine();
+                            String l2 = sc.nextLine();
+                            encrypt(l1,0);
+                            encrypt(l2,1);
+                           Integer.toBinaryString(10);
+                           
+
+                            
+                        }
+                        sc.close();
+                    }            
+
+                    public String tran(String t)
+                    {
+                        String s11 = "0123456789abcdefABCDEF";
+                        String s21= "084C2A6E195D3B7F5D3B7F";
+                        return s21.substring(s11.indexOf(t),s11.indexOf(t)+1);
+                    }
+//字符串合并处理   写的一手好辣鸡     str.charAt(index):取index处的字符！！忘记这个方法了==                    
+                    public void strMerge()
+                    {      //开始忘记考虑除了这些字符的其他字符了！！！
+                        Scanner sc = new Scanner(System.in);
+                        while(sc.hasNext())
+                        {
+                            String s = sc.nextLine();
+                            String[] slist = s.split("\\ ");
+                            s = slist[0] + slist[1];
+                            List<String> sb1 = new ArrayList<>();
+                            List<String> sb2 = new ArrayList<>();
+                            for(int i=0; i < s.length(); i++){
+                                if(i%2 == 0)
+                                    sb1.add(s.substring(i,i+1));
+                                else
+                                    sb2.add(s.substring(i,i+1));
+                            }
+                            Collections.sort(sb1);
+                            Collections.sort(sb2);
+                            for(int i=0; i<s.length();i++)
+                            {
+                                    if(i%2 == 0)
+                                {
+                                    if("0123456789abcdefABCDEF".contains(sb1.get(i/2)))
+                                        System.out.print(tran(sb1.get(i/2)));
+                                    else
+                                        System.out.print(sb1.get(i/2));
+                                }
+                                else
+                                {
+                                    if("0123456789abcdefABCDEF".contains(sb2.get(i/2)))
+                                        System.out.print(tran(sb2.get(i/2)));
+                                    else
+                                        System.out.print(sb2.get(i/2));
+                                   
+                                }
+                                   
+                            }
+                            System.out.println();
+                        }
+                    }
+            public static void main(String[] args)
     {
         Main ma = new Main();
         // ma.worldLength();
@@ -841,7 +919,8 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
         //ma.simplePwd();
         //ma.bottle();
         //ma.deleteLeast();
-          ma.broWord();
+        // ma.broWord();
+        ma.strMerge();
          
     }
 }

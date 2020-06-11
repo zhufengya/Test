@@ -186,7 +186,7 @@ public class Complex{
        System.out.println(a + " "+b+" "+c+" "+d+" "+e+" "+err+" "+p);
        scan.close();
     }
-//数据分类处理    TreeSet排序去重利器！！！
+//数据分类处理    TreeSet去重利器！！！
     public void dataProcess(){
         Scanner scan = new Scanner(System.in);
         while(scan.hasNext())

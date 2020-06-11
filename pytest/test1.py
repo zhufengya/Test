@@ -560,7 +560,120 @@ def brother_word():
                 print(l[index-1])
         except:
             break
-        
+
+def prime(a, b):
+    summ = a + b
+    i = 2
+    while i * i <= summ:
+        if summ % i == 0:
+            return False
+        i += 1
+    return True
+    
+
+def pair(x1,us,res):
+    for i in range(1, len(ou)+1):
+        if prime(ji[x1-1], ou[i-1]) and us[i] == 0:
+            us[i] = 1
+            if res[i] == 0 or pair(res[i]):
+                res[i] = x1
+                return True
+    return False
+#素数伴侣   递归想清楚==比较难得画图
+def primepartner():
+    n = int(input())
+    s = list(map(int,input().split(' ')))
+    for num in s:
+        if num % 2:
+            ji.append(num)
+        else:
+            ou.append(num)
+    result = [0 for i in range(len(ou)+1)]
+    cunt = 0
+    for x in range(1,len(ji)+1):
+        used = [0 for i in range(len(ou)+1)]
+        if pair(x, used,result):
+            cunt += 1
+    print(cunt)
+    '''
+    while True:
+        try:
+           
+        except:
+            print('ja')
+            break
+        '''  
+
+s1 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+s2 = 'BCDEFGHIJKLMNOPQRSTUVWXYZAbcdefghijklmnopqrstuvwxyza1234567890'
+
+def en(st):
+    l = ''
+    for letter in st:
+        l += s2[s1.index(letter)]
+    print(l)
+
+def de(st):
+    ls = ''
+    for letter in st:
+        ls += s1[s2.index(letter)]
+    print(ls)
+
+def strec():  
+    while True:
+        try:
+            s = input()
+            t = input()
+            en(s)
+            de(t)
+        except:
+            break 
+#字符串合并处理    
+def str_merge():
+    s1 = '0123456789abcdefABCDEF'
+    s2 = '084C2A6E195D3B7F5D3B7F'   #还是就暴力破解用字典最简单呀==
+    dic = {10:'A',11:'B',12:'C',13:'D',14:'E',15:'F'}
+    while True:
+        try:
+            s = input().split(' ')
+            s = s[0] + s[1]
+            l1 = []
+            l2 = []
+            for i in range(len(s)):
+                if i % 2:
+                    l2.append(s[i])
+                else:
+                    l1.append(s[i])   #0,2,4...
+            l1.sort()
+            l2.sort()
+            re = ''
+            for i in range(len(s)):
+                if i % 2:
+                    re += l2[i//2]
+                else:
+                    re += l1[i//2]
+            final = ''
+            for letter in re:
+                if letter.isdigit():
+                    binstr = bin(int(letter))[2:]
+                elif letter.upper() in 'ABCDEF':
+                    binstr = bin(int(letter,16))[2:]
+                else:
+                    final += letter
+                    continue
+                if len(binstr) < 4:    #bin(1) = 1, 逆序后还是1会出错！！所以要补齐四位！！记住了！！！
+                    binstr = '0' *(4-len(binstr)) + binstr
+                binstr = list(binstr)
+                binstr.reverse()
+                result = int(''.join(binstr),2)
+                if result <= 9:
+                    final += str(result)
+                else:
+                    final += dic[result]
+            print(final)
+        except:
+            break
+ 
 if __name__=="__main__":
     #wordlength()
     #wordcunt()
@@ -582,5 +695,10 @@ if __name__=="__main__":
     # pwd_valid()
     # shopping_list()
     # hechang()
-    data_process()
+    # data_process()
+    ji = []
+    ou = []
+    # primepartner()
+    str_merge()
+
         

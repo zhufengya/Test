@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Hhhard",
+            "request": "launch",
+            "mainClass": "javatest.Hhhard",
+            "projectName": "codetest_1c4cacb8"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Dp",
             "request": "launch",
             "mainClass": "javatest.Dp",
