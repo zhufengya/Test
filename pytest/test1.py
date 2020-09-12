@@ -674,6 +674,332 @@ def str_merge():
         except:
             break
  
+def test(name,age,**kw):    #关键字参数
+    print("name:", name, "  age:", age, kw)
+
+def keyname(name, age, *, city, major):   #命名关键字参数，如果前有可变参数，*可省略，否则不可省略
+    print("name:",name,"  age:",age, city, major)
+
+def fact(n):
+    if n== 1:
+        return 1
+    else:
+        return n * fact(n-1)
+
+def f(n):
+    return fa(n,1)
+
+def fa(num, re):    #尾递归：return中不含表达式，且调用自身本身。
+    if num == 1:
+        return re
+    else:
+        return fa(num-1, num * re)
+
+def trim(s):
+    if not s:
+        return ''
+    for i in range(len(s)):
+        if s[i] == ' ':
+            continue
+        else:
+            break
+    for j in range(len(s)-1,-1,-1):
+        if s[j] == ' ':
+            continue
+        else:
+            break
+    return s[i:j+1]
+
+def fib(max):    #生成器，遇到yield就停止执行，要用next()函数或者for循环来获取生成器的结果
+    n,a,b=0,0,1
+    while n < max:
+        yield b
+        a,b = b , a + b
+        n += 1
+    return 'done'
+
+def triangle():     #使用生成器生成杨辉三角。
+    l = [1]
+    while True:
+        yield l
+        l = [1] + [l[x] + l[x+1] for x in range(len(l)-1)] + [1]
+
+from functools import reduce
+
+def str2float(s):    #map /reduce函数！！
+    DIGITS = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+    def fn(x, y):
+        return x * 10 + y
+    def char2num(s):
+        return DIGITS[s]
+    print(s.split('.')[0])
+    return reduce(fn, map(char2num, s.split('.')[0])) + reduce(fn, map(char2num, s.split('.')[1])) * (10 **(-len(s.split('.')[1])))
+
+def _not_divisible(n):
+    return lambda x: x % n > 0
+
+def _odd_iter():
+    n = 1
+    while True:
+        n += 2
+        yield n
+
+import functools
+
+# def log(func):         #装饰器
+#     @functools.wraps(func)   #不改变原来func的名字
+#     def wrapper(*args, **kw):
+#         print("begin call")
+#         print('call %s():' % func.__name__)
+#         f = func(*args, **kw)
+#         print("end call")
+#         return f
+#     return wrapper 
+
+def log(text):   #可同时支持@log和@log("haha")
+    if isinstance(text,str):   #先判断text是不是传入的参数
+        def decorator(func):
+            @functools.wraps(func)
+            def wrapper(*args, **kw):
+                print('%s %s():' % (text, func.__name__))
+                return func(*args, **kw)
+            return wrapper
+        print("end call")
+        return decorator
+    else:
+        @functools.wraps(text)   
+        def wrapper(*args, **kw):
+            print("begin call")
+            print('call %s():' % text.__name__)
+            f = text(*args, **kw)
+            print("end call")
+            return f
+        return wrapper
+
+@log("haha")
+def now():
+    print('2020-6-14')
+
+def primes():
+    yield 2
+    it = _odd_iter() # 初始序列
+    while True:
+        n = next(it) # 返回序列的第一个数
+        yield n
+        it = filter(_not_divisible(n), it) # 构造新序列
+#[中级]单词倒排
+def word_reverse():  #越写越倒退了==
+    while True:
+        try:
+            s = input().strip().strip('\n')
+            l = []
+            cunt = 0
+            for i in range(len(s)):
+                if s[i].isalpha():
+                    cunt += 1
+                    continue
+                else:
+                    if cunt == 0:
+                        continue
+                    l.append(s[i-cunt:i])
+                    cunt = 0
+                    flag = False
+            if cunt:
+                l.append(s[i-cunt+1:len(s)])
+            l.reverse()
+            print(" ".join(l).strip())
+        except:
+            break
+
+def word_reverse1():
+    while True:
+        try:
+            s = input().strip().strip('\n')
+            l = ''
+            re = []
+            for letter in s:
+                if letter.isalpha():
+                    l += letter
+                else:
+                    if l:
+                        re.append(l)
+                    l = ''
+            if l:
+                re.append(l)
+            print(' '.join(re[::-1]))
+        except:
+            break
+#字符串运用，密码截取          求一个字符串的最大连续回文子串！！
+#1.从头回溯遍历整个字符串，找到满足ABA或aabb形式的最大子串
+#2.马拉车算法！不需要回溯！时间复杂度为O(n)
+def manna(st):    #字符串回溯
+    cunt = 0
+    for i in range(len(st)):
+        low,high = i, i+1
+        while low >=0 and high <len(st) and st[low] == st[high]:
+            low -= 1
+            high += 1
+        if high - low - 1 > cunt:
+            cunt = high - low -1
+        low,high = i-1, i+1
+        while low >=0 and high <len(st) and st[low] == st[high]:
+            low -= 1
+            high += 1
+        if high - low - 1 > cunt:
+            cunt = high - low -1
+    return cunt
+
+#整数与ip地址间的转换
+def ip_int(st):
+    l = list(map(int,st.split('.')))
+    summ = (l[0] << 24) + (l[1]<<16) + (l[2]<<8) + l[3]
+    return summ
+
+def int_ip(st):
+    l = []
+    l.append(str(st >> 24))
+    num1 = st % (pow(2,24))
+    l.append(str(num1 >> 16))
+    num2 = num1 %(pow(2,16))
+    l.append(str(num2 >> 8))
+    l.append(str(num2 % pow(2,8)))
+    return '.'.join(l)
+
+def transform():
+    while True:
+        try:
+            sip = input()
+            sint = input()
+            print(ip_int(sip))
+            print(int_ip(int(sint)))
+        except:
+            break
+ #图片整理，对字符串进行排序！ 直接把str转化成list，然后list.sort()也可以   
+def image_analyze():
+    dic = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    while True:
+        try:
+            s = input()
+            for letter in dic:
+                for ch in s:
+                    if ch == letter:
+                        print(ch,end = '')
+            print()
+        except:
+            break
+#蛇形矩阵！找到规律就好！
+def matrix():
+    while True:
+        try:
+            s = int(input())
+            init = 1
+            for i in range(s):
+                l = []
+                l.append(init)
+                for j in range(s-i-1):
+                    l.append(l[j] + i + j + 2)
+                print(' '.join(list(map(str,l))))
+                init += i + 1
+        except:
+            break
+#字符串加密，字符替换，简单替换加密。
+def encrystr():
+    dic = 'abcdefghijklmnopqrstuvwxyz'
+    while True:
+        try:
+            key = input()
+            st = input()
+            l = ''
+            for letter in key:
+                letter = letter.lower()
+                if letter not in l:
+                    l += letter
+            for letter in dic:
+                if letter not in l:
+                    l += letter
+            for ch in st:
+                if ch.isupper():
+                    print(l[dic.index(ch.lower())].upper(), end = '')
+                else:
+                    print(l[dic.index(ch)],end = '')
+            print()
+        except:
+            break
+#统计每个月兔子的总数，总数满足斐波那契数列！！
+def fib(n):   
+    if n == 1 or n == 2:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+#辣鸡题==小球反弹高度。
+def height():
+    while True:
+        try:
+            s = int(input())
+            summ = s
+            for i in range(4):
+                s = s / 2
+                summ += 2 * s
+            print(summ)
+            print(s/2)
+        except:
+            break
+
+#判断两个ip是不是属于同一个子网
+def mask_valid(ip):
+    try:
+        l = list(map(int,ip.split('.')))
+        summ = (l[0]<<24) +(l[1]<<16) + (l[2] <<8) + l[3]
+        if summ | (summ -1) == 0xFFFFFFFF:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+def ip_valid(ip):
+    try:
+        l = list(map(int,ip.split('.')))
+        for num in l:
+            if num >= 0 and num <= 255:
+                continue
+            else:
+                return False
+        return True
+    except:
+        return False
+
+def ip_mask(ip,mask):
+    l1 = list(map(int,ip.split('.')))
+    l2 = list(map(int,mask.split('.')))
+    l = []
+    for i in range(4):
+        l.append(l1[i] & l2[i])
+    return l
+
+def subip():
+    while True:
+        try:
+            mask = input()
+            ip1 = input()
+            ip2 = input()
+            if not mask_valid(mask):
+                print('1')
+                continue
+            elif not ip_valid(ip1) or not ip_valid(ip2):
+                print('1')
+            else:
+                if ip_mask(ip1,mask) == ip_mask(ip2, mask):
+                    print('0')
+                else:
+                    print('2')
+        except:
+            break       
+            
+            
+            
+            
+        
 if __name__=="__main__":
     #wordlength()
     #wordcunt()
@@ -699,6 +1025,7 @@ if __name__=="__main__":
     ji = []
     ou = []
     # primepartner()
-    str_merge()
+    # str_merge()
 
+    
         

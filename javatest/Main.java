@@ -891,6 +891,7 @@ Math.ceil():天花板值，返回大于等于( >= )给定参数的的最小整�
                             }
                             System.out.println();
                         }
+                        sc.close();
                     }
             public static void main(String[] args)
     {
