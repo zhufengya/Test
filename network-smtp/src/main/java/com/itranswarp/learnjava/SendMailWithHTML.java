@@ -11,10 +11,10 @@ public class SendMailWithHTML {
 
 	public static void main(String[] args) throws Exception {
 		final String smtp = "smtp.qq.com";
-		final String username = "1154369535@qq.com";
-		final String password = "nhlhxqfczyybhghd";
+		final String username = "username";
+		final String password = "pwd";   //邮箱授权码
 		final String from = "1154369535@qq.com";
-		final String to = "Neptuneya@163.com";
+		final String to = "3496863649@qq.com";
 		SendMail sender = new SendMail(smtp, username, password);
 		Session session = sender.createTLSSession();
 		Message message = createHtmlMessage(session, from, to, "Java HTML邮件",
